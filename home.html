@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>Document</title>
+    <style>
+        button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+        button:hover {
+            background-color: #38813a;
+        }
+        textarea {
+            margin: 0 auto 30px auto; 
+            width: 100%; 
+            height: 50%; 
+            font-size: 30px; 
+            resize: none;
+        }
+    </style>
+</head>
+<body style="width: 100%; margin: 0;">
+    <center style="margin-top: 50px;">
+        <h1>Beautiful String Wrapping</h1>
+    </center>
+    <div style="width: 100%; margin-top: 70px;">
+        <div style="width: 70%; height: 500px; margin: 0 auto;">
+            <textarea name="" id="mix_one"></textarea>
+            <button>Convert</button>
+            <textarea name="" id="fit_one" readonly></textarea>
+        </div>
+    </div>
+    <script>
+        
+        $("button").click(function () {
+            $("#fit_one").val(function (_, val) {
+                var str = $("#mix_one").val();
+                const regex1 = /\([abc?]\)/g;
+                var matches_array = str.match(regex1);
+                if (matches_array != null) {
+                    matches_array.map(item => {
+                        str = str.replace(item, `\n\n${item} `);
+                    });
+                }
+                
+                var regex2 = /\W?(?=[A-Z][a-z])/g;
+                var regex3 = /\W?(?=[A-Z]{1}\s)/g;
+                var regex4 = /w?[A-Z]{2,}/g;
+                str = str.replace(regex2, '$&\n');
+                str = str.replace(regex3, '$&\n');
+                str = str.replace(regex4, '\n$&');
+                return str;
+            });
+        })
+        
+
+    </script>
+</body>
+</html>
